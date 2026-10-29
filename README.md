@@ -3,8 +3,9 @@
 Trabajo Práctico de Diseño UX/UI (Licenciatura en Sistemas de Información, FCyT UADER, 2026).
 Front-end de un checkout multipaso: cotizar → elegir plan → datos personales → pago simulado → póliza.
 
-- **Sitio publicado:** _pegar acá la URL de GitHub Pages_
+- **Sitio publicado:** https://santystecklein.github.io/cubri-seguros/
 - **Diseño en Figma:** https://www.figma.com/design/vJrfOUfiOI7OSeTtRfCloh
+- **Repositorio de Github:** https://github.com/SantyStecklein/cubri-seguros
 
 ## Stack
 
@@ -66,9 +67,15 @@ Tarjetas de prueba: `4111 1111 1111 1111` (aprobada) · `4000 0000 0000 0002` (r
 
 ## Capturas
 
-| Mobile (390 px) | Desktop (1440 px) |
-|---|---|
-| _captura_ | _captura_ |
+| Pantalla | Mobile (390 px) | Desktop (1440 px) |
+|---|---|---|
+| 01 · Inicio / Catálogo | <img src="capturas/01-inicio-mobile.png" width="200"> | <img src="capturas/01-inicio-desktop.png" width="480"> |
+| 02 · Cotizar (Paso 1) | <img src="capturas/02-cotizar-mobile.png" width="200"> | <img src="capturas/02-cotizar-desktop.png" width="480"> |
+| 03 · Elegir plan (Paso 2) | <img src="capturas/03-planes-mobile.png" width="200"> | <img src="capturas/03-planes-desktop.png" width="480"> |
+| 04 · Datos personales (Paso 3) | <img src="capturas/04-datos-mobile.png" width="200"> | <img src="capturas/04-datos-desktop.png" width="480"> |
+| 05 · Pago (Paso 4) | <img src="capturas/05-pago-mobile.png" width="200"> | <img src="capturas/05-pago-desktop.png" width="480"> |
+| 06 · Éxito | <img src="capturas/06-exito-mobile.png" width="200"> | <img src="capturas/06-exito-desktop.png" width="480"> |
+| 07 · Error de pago | <img src="capturas/07-error-pago-mobile.png" width="200"> | <img src="capturas/07-error-pago-desktop.png" width="480"> |
 
 ## Deploy
 
