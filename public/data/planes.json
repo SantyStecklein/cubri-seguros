@@ -1,0 +1,8 @@
+[
+  { "id": "basico", "nombre": "Básico", "tasaAnual": 0.04,
+    "coberturas": ["Robo con violencia"] },
+  { "id": "plus", "nombre": "Plus", "tasaAnual": 0.06, "recomendado": true,
+    "coberturas": ["Robo con violencia", "Rotura de pantalla"] },
+  { "id": "premium", "nombre": "Premium", "tasaAnual": 0.09,
+    "coberturas": ["Robo con violencia", "Rotura total", "Hurto / pérdida"] }
+]
