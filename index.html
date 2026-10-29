@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cubrí Seguros · Seguro de celular</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Inter (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <!-- Modo oscuro sin parpadeo: se aplica antes de pintar -->
+  <script>
+    (() => {
+      try {
+        const guardado = localStorage.getItem('themeMode');
+        if (guardado ? guardado === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (_) {}
+    })();
+  </script>
+
+  <!-- Basecoat JS: solo el runtime + el componente Toast (bonus) -->
+  <script src="https://cdn.jsdelivr.net/npm/basecoat-css@1.1.0/dist/js/basecoat.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/basecoat-css@1.1.0/dist/js/toast.min.js" defer></script>
+
+  <!-- Estilos (Tailwind + Basecoat + tokens) se importan desde js/app.js -->
+  <script type="module" src="/js/app.js"></script>
+</head>
+
+<body class="min-h-screen bg-page text-foreground antialiased">
+  <header class="border-b bg-card">
+    <div class="mx-auto flex h-14 max-w-[1200px] items-center justify-between px-4 lg:h-16 lg:px-8">
+      <div class="flex items-center gap-2 text-lg font-extrabold text-primary-700">
+        <span aria-hidden="true" class="grid size-8 place-items-center rounded-lg bg-primary text-sm text-primary-foreground">C</span>
+        Cubrí Seguros
+      </div>
+      <button type="button" class="btn size-9 p-0" data-variant="outline" data-accion="tema"
+              aria-label="Cambiar entre modo claro y oscuro" aria-pressed="false">
+        <span class="hidden dark:block"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span>
+        <span class="block dark:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="mx-auto w-full max-w-[1200px] px-4 py-6 lg:px-8 lg:py-10 [&_.field>label]:text-[13px] [&_.field>label]:font-semibold [&_.field>p]:text-xs">
+
+    <!-- Stepper: lo pinta renderStepper() -->
+    <nav id="stepper-wrap" aria-label="Pasos de la contratación" class="mx-auto mb-6 max-w-2xl" hidden>
+      <ol id="stepper" class="flex"></ol>
+    </nav>
+
+    <!-- 01 · Inicio / Catálogo -->
+    <section data-paso="0" hidden class="grid items-center gap-8 lg:grid-cols-2 lg:gap-16 lg:py-8">
+      <div class="space-y-5">
+        <h1 tabindex="-1" class="text-3xl font-extrabold leading-tight tracking-tight outline-none lg:text-5xl">Asegurá tu celular en cuatro pasos</h1>
+        <p class="max-w-md text-[15px] text-muted-foreground">Cotizá, elegí un plan, cargá tus datos y recibí tu póliza al instante. Todo online, sin trámites.</p>
+        <button type="button" class="btn h-11 px-6" data-accion="iniciar">Cotizar seguro de celular</button>
+        <p class="text-xs text-muted-foreground">Práctica académica: no hay pagos ni pólizas reales.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 lg:gap-4">
+        <article class="card gap-3 border-primary p-4 ring-1 ring-primary/30">
+          <div aria-hidden="true" class="grid size-11 place-items-center rounded-xl bg-primary-50 text-2xl">📱</div>
+          <div>
+            <h2 class="text-base font-bold">Celular</h2>
+            <p class="text-xs text-muted-foreground">Robo, rotura y pérdida</p>
+          </div>
+          <button type="button" class="btn w-full" data-accion="iniciar">Cotizar</button>
+        </article>
+        <article class="card gap-3 p-4 opacity-70" aria-disabled="true">
+          <div aria-hidden="true" class="grid size-11 place-items-center rounded-xl bg-primary-50 text-2xl">🏠</div>
+          <h2 class="text-base font-bold">Hogar</h2>
+          <span class="badge w-fit" data-variant="secondary">Próximamente</span>
+        </article>
+        <article class="card gap-3 p-4 opacity-70" aria-disabled="true">
+          <div aria-hidden="true" class="grid size-11 place-items-center rounded-xl bg-primary-50 text-2xl">🚲</div>
+          <h2 class="text-base font-bold">Bicicleta</h2>
+          <span class="badge w-fit" data-variant="secondary">Próximamente</span>
+        </article>
+        <article class="card gap-3 p-4 opacity-70" aria-disabled="true">
+          <div aria-hidden="true" class="grid size-11 place-items-center rounded-xl bg-primary-50 text-2xl">✈️</div>
+          <h2 class="text-base font-bold">Viaje</h2>
+          <span class="badge w-fit" data-variant="secondary">Próximamente</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- Pasos 1 a 4: render() cambia las columnas según el paso -->
+    <div id="checkout" hidden>
+      <div>
+
+        <!-- 02 · Cotizar (Paso 1) -->
+        <section data-paso="1" hidden>
+          <form id="form-1" class="card" novalidate>
+            <header>
+              <h2 tabindex="-1" class="text-2xl font-extrabold outline-none">Cotizá tu seguro</h2>
+              <p class="text-[15px] text-muted-foreground">Contanos sobre tu celular y calculamos la cuota.</p>
+            </header>
+            <section class="grid gap-5">
+              <div class="grid gap-5 sm:grid-cols-2">
+                <div role="group" class="field">
+                  <label for="marca">Marca</label>
+                  <select id="marca" data-campo="equipo.marca" aria-describedby="err-equipo-marca">
+                    <option value="">Elegí una marca</option>
+                    <option value="Samsung">Samsung</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Motorola">Motorola</option>
+                    <option value="Xiaomi">Xiaomi</option>
+                    <option value="Otra">Otra</option>
+                  </select>
+                  <p id="err-equipo-marca" role="alert" class="text-error" hidden></p>
+                </div>
+                <div role="group" class="field">
+                  <label for="modelo">Modelo</label>
+                  <input id="modelo" type="text" maxlength="40" autocomplete="off" placeholder="Ej.: Galaxy A55"
+                         data-campo="equipo.modelo" aria-describedby="err-equipo-modelo">
+                  <p id="err-equipo-modelo" role="alert" class="text-error" hidden></p>
+                </div>
+              </div>
+
+              <div role="group" class="field">
+                <label for="valor">Valor del equipo (en pesos)</label>
+                <input id="valor" type="text" inputmode="numeric" autocomplete="off" placeholder="Ej.: 600.000"
+                       data-campo="equipo.valor" aria-describedby="ayuda-valor err-equipo-valor">
+                <p id="ayuda-valor" class="text-muted-foreground">Entre $100.000 y $2.500.000.</p>
+                <p id="err-equipo-valor" role="alert" class="text-error" hidden></p>
+              </div>
+
+              <div role="group" class="field" aria-labelledby="lbl-antiguedad">
+                <span id="lbl-antiguedad" class="text-[13px] font-semibold">Antigüedad del equipo</span>
+                <div class="flex flex-wrap gap-2">
+                  <div>
+                    <input id="ant-menos-1" type="radio" name="antiguedad" value="menos-1" class="peer sr-only" data-campo="equipo.antiguedad" aria-describedby="err-equipo-antiguedad">
+                    <label for="ant-menos-1" class="inline-flex h-10 cursor-pointer items-center rounded-full border bg-card px-4 text-sm font-medium transition-colors hover:bg-primary-50 peer-checked:border-primary peer-checked:bg-primary-50 peer-checked:text-primary-700 peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-aria-invalid:border-error">Menos de 1 año</label>
+                  </div>
+                  <div>
+                    <input id="ant-1-2" type="radio" name="antiguedad" value="1-2" class="peer sr-only" data-campo="equipo.antiguedad" aria-describedby="err-equipo-antiguedad">
+                    <label for="ant-1-2" class="inline-flex h-10 cursor-pointer items-center rounded-full border bg-card px-4 text-sm font-medium transition-colors hover:bg-primary-50 peer-checked:border-primary peer-checked:bg-primary-50 peer-checked:text-primary-700 peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-aria-invalid:border-error">1 a 2 años</label>
+                  </div>
+                  <div>
+                    <input id="ant-mas-2" type="radio" name="antiguedad" value="mas-2" class="peer sr-only" data-campo="equipo.antiguedad" aria-describedby="err-equipo-antiguedad">
+                    <label for="ant-mas-2" class="inline-flex h-10 cursor-pointer items-center rounded-full border bg-card px-4 text-sm font-medium transition-colors hover:bg-primary-50 peer-checked:border-primary peer-checked:bg-primary-50 peer-checked:text-primary-700 peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-aria-invalid:border-error">Más de 2 años</label>
+                  </div>
+                </div>
+                <p id="err-equipo-antiguedad" role="alert" class="text-error" hidden></p>
+              </div>
+
+              <p data-ayuda class="text-xs text-muted-foreground"></p>
+              <div class="fixed inset-x-0 bottom-0 z-30 flex h-[72px] items-center gap-3 border-t bg-card px-4 lg:static lg:z-auto lg:h-auto lg:justify-between lg:border-0 lg:bg-transparent lg:px-0 lg:pt-2">
+                <button type="button" class="btn h-11 lg:h-10" data-variant="outline" data-accion="volver">Volver</button>
+                <button type="submit" class="btn h-11 flex-1 lg:h-10 lg:flex-none lg:px-8" data-continuar disabled>Ver planes</button>
+              </div>
+            </section>
+          </form>
+        </section>
+
+        <!-- 03 · Elegir plan (Paso 2) -->
+        <section data-paso="2" hidden>
+          <form id="form-2" class="card" novalidate>
+            <header>
+              <h2 tabindex="-1" class="text-2xl font-extrabold outline-none">Elegí tu plan</h2>
+              <p id="plan-lead" class="text-[15px] text-muted-foreground"></p>
+            </header>
+            <section class="grid gap-5">
+              <div id="planes" role="radiogroup" aria-label="Planes disponibles" class="grid gap-3 lg:grid-cols-3"></div>
+              <p data-ayuda class="text-xs text-muted-foreground"></p>
+              <div class="fixed inset-x-0 bottom-0 z-30 flex h-[72px] items-center gap-3 border-t bg-card px-4 lg:static lg:z-auto lg:h-auto lg:justify-between lg:border-0 lg:bg-transparent lg:px-0 lg:pt-2">
+                <button type="button" class="btn h-11 lg:h-10" data-variant="outline" data-accion="volver">Volver</button>
+                <button type="submit" class="btn h-11 flex-1 lg:h-10 lg:flex-none lg:px-8" data-continuar disabled>Continuar</button>
+              </div>
+            </section>
+          </form>
+        </section>
+
+        <!-- 04 · Datos personales (Paso 3) -->
+        <section data-paso="3" hidden>
+          <form id="form-3" class="card" novalidate>
+            <header>
+              <h2 tabindex="-1" class="text-2xl font-extrabold outline-none">Tus datos</h2>
+              <p class="text-[15px] text-muted-foreground">Los usamos para emitir tu póliza.</p>
+            </header>
+            <section class="grid gap-5">
+              <div class="grid grid-cols-2 gap-x-4 gap-y-5">
+                <div role="group" class="field col-span-2 sm:col-span-1">
+                  <label for="nombre">Nombre</label>
+                  <input id="nombre" type="text" maxlength="40" autocomplete="given-name" autocapitalize="words" spellcheck="false" data-campo="titular.nombre" aria-describedby="err-titular-nombre">
+                  <p id="err-titular-nombre" role="alert" class="text-error" hidden></p>
+                </div>
+                <div role="group" class="field col-span-2 sm:col-span-1">
+                  <label for="apellido">Apellido</label>
+                  <input id="apellido" type="text" maxlength="40" autocomplete="family-name" autocapitalize="words" spellcheck="false" data-campo="titular.apellido" aria-describedby="err-titular-apellido">
+                  <p id="err-titular-apellido" role="alert" class="text-error" hidden></p>
+                </div>
+                <div role="group" class="field col-span-2 sm:col-span-1">
+                  <label for="dni">DNI</label>
+                  <input id="dni" type="text" inputmode="numeric" maxlength="8" autocomplete="off" data-campo="titular.dni" aria-describedby="err-titular-dni">
+                  <p id="err-titular-dni" role="alert" class="text-error" hidden></p>
+                </div>
+                <div role="group" class="field col-span-2 sm:col-span-1">
+                  <label for="nacimiento">Fecha de nacimiento</label>
+                  <input id="nacimiento" type="date" autocomplete="bday" data-campo="titular.nacimiento" aria-describedby="err-titular-nacimiento">
+                  <p id="err-titular-nacimiento" role="alert" class="text-error" hidden></p>
+                </div>
+                <div role="group" class="field col-span-2">
+                  <label for="email">Email</label>
+                  <input id="email" type="email" maxlength="100" autocomplete="email" autocapitalize="off" spellcheck="false" data-campo="titular.email" aria-describedby="err-titular-email">
+                  <p id="err-titular-email" role="alert" class="text-error" hidden></p>
+                </div>
+                <div role="group" class="field col-span-2 sm:col-span-1">
+                  <label for="celular">Celular</label>
+                  <input id="celular" type="tel" autocomplete="tel-national" placeholder="11 5555-1234" data-campo="titular.celular" aria-describedby="ayuda-celular err-titular-celular">
+                  <p id="ayuda-celular" class="text-muted-foreground">Sin 0 ni 15.</p>
+                  <p id="err-titular-celular" role="alert" class="text-error" hidden></p>
+                </div>
+                <div role="group" class="field col-span-2">
+                  <div class="flex items-start gap-2">
+                    <input id="terminos" type="checkbox" class="mt-0.5" data-campo="titular.terminos" aria-describedby="err-titular-terminos">
+                    <label for="terminos" class="text-sm font-normal">Acepto los términos y condiciones del seguro.</label>
+                  </div>
+                  <p id="err-titular-terminos" role="alert" class="text-error" hidden></p>
+                </div>
+              </div>
+
+              <p data-ayuda class="text-xs text-muted-foreground"></p>
+              <div class="fixed inset-x-0 bottom-0 z-30 flex h-[72px] items-center gap-3 border-t bg-card px-4 lg:static lg:z-auto lg:h-auto lg:justify-between lg:border-0 lg:bg-transparent lg:px-0 lg:pt-2">
+                <button type="button" class="btn h-11 lg:h-10" data-variant="outline" data-accion="volver">Volver</button>
+                <button type="submit" class="btn h-11 flex-1 lg:h-10 lg:flex-none lg:px-8" data-continuar disabled>Continuar al pago</button>
+              </div>
+            </section>
+          </form>
+        </section>
+
+        <!-- 05 · Pago (Paso 4) -->
+        <section data-paso="4" hidden>
+          <form id="form-4" class="card" novalidate>
+            <header>
+              <h2 tabindex="-1" class="text-2xl font-extrabold outline-none">Pagá y contratá</h2>
+              <p class="text-[15px] text-muted-foreground">Revisá el resumen y completá los datos de la tarjeta.</p>
+            </header>
+            <section class="grid gap-5">
+              <div class="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                <h2>Pago simulado</h2>
+                <section>No se hace ningún cobro real. Aprobada: 4111 1111 1111 1111. Rechazada: 4000 0000 0000 0002.</section>
+              </div>
+
+              <div role="group" class="field" aria-labelledby="lbl-metodo">
+                <span id="lbl-metodo" class="text-[13px] font-semibold">Medio de pago</span>
+                <div class="flex flex-wrap gap-2">
+                  <div>
+                    <input id="metodo-credito" type="radio" name="metodo" value="credito" class="peer sr-only" data-campo="pago.metodo">
+                    <label for="metodo-credito" class="inline-flex h-10 cursor-pointer items-center rounded-full border bg-card px-4 text-sm font-medium transition-colors hover:bg-primary-50 peer-checked:border-primary peer-checked:bg-primary-50 peer-checked:text-primary-700 peer-focus-visible:ring-2 peer-focus-visible:ring-primary">Crédito</label>
+                  </div>
+                  <div>
+                    <input id="metodo-debito" type="radio" name="metodo" value="debito" class="peer sr-only" data-campo="pago.metodo">
+                    <label for="metodo-debito" class="inline-flex h-10 cursor-pointer items-center rounded-full border bg-card px-4 text-sm font-medium transition-colors hover:bg-primary-50 peer-checked:border-primary peer-checked:bg-primary-50 peer-checked:text-primary-700 peer-focus-visible:ring-2 peer-focus-visible:ring-primary">Débito</label>
+                  </div>
+                </div>
+              </div>
+
+              <div role="group" class="field">
+                <label for="tarjeta">Número de tarjeta</label>
+                <input id="tarjeta" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000"
+                       data-campo="pago.tarjeta" aria-describedby="err-pago-tarjeta">
+                <p id="err-pago-tarjeta" role="alert" class="text-error" hidden></p>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div role="group" class="field">
+                  <label for="vencimiento">Vencimiento</label>
+                  <input id="vencimiento" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA" maxlength="5"
+                         data-campo="pago.vencimiento" aria-describedby="err-pago-vencimiento">
+                  <p id="err-pago-vencimiento" role="alert" class="text-error" hidden></p>
+                </div>
+                <div role="group" class="field">
+                  <label for="cvv">CVV</label>
+                  <input id="cvv" type="password" inputmode="numeric" autocomplete="cc-csc" maxlength="3" placeholder="123"
+                         data-campo="pago.cvv" aria-describedby="err-pago-cvv">
+                  <p id="err-pago-cvv" role="alert" class="text-error" hidden></p>
+                </div>
+              </div>
+              <div role="group" class="field">
+                <label for="titular-tarjeta">Titular de la tarjeta</label>
+                <input id="titular-tarjeta" type="text" autocomplete="cc-name" data-campo="pago.titular" aria-describedby="err-pago-titular">
+                <p id="err-pago-titular" role="alert" class="text-error" hidden></p>
+              </div>
+
+              <p data-ayuda class="text-xs text-muted-foreground"></p>
+              <div class="fixed inset-x-0 bottom-0 z-30 flex h-[72px] items-center gap-3 border-t bg-card px-4 lg:static lg:z-auto lg:h-auto lg:justify-between lg:border-0 lg:bg-transparent lg:px-0 lg:pt-2">
+                <button type="button" class="btn h-11 lg:h-10" data-variant="outline" data-accion="volver">Volver</button>
+                <button id="btn-pagar" type="submit" class="btn h-11 flex-1 lg:h-10 lg:flex-none lg:px-8" data-continuar disabled>Pagar y contratar</button>
+              </div>
+            </section>
+          </form>
+        </section>
+      </div>
+
+      <!-- Resumen ÚNICO: barra fija en mobile, card lateral en desktop. Lo genera renderResumen() -->
+      <aside id="resumen" aria-label="Resumen de tu seguro" hidden
+             class="fixed inset-x-0 bottom-[72px] z-20 border-t bg-card shadow-[0_-4px_12px_rgba(15,23,42,0.08)] lg:sticky lg:inset-x-auto lg:bottom-auto lg:top-6 lg:z-auto lg:rounded-xl lg:border lg:shadow-sm"></aside>
+    </div>
+
+    <!-- 06 · Éxito -->
+    <section data-paso="5" hidden class="mx-auto max-w-xl">
+      <div class="card text-center">
+        <header>
+          <div aria-hidden="true" class="mx-auto grid size-14 place-items-center rounded-full bg-success text-2xl text-white">✓</div>
+          <h2 tabindex="-1" class="mt-4 text-2xl font-extrabold outline-none">¡Listo, <span id="ex-nombre"></span>!</h2>
+          <p class="text-[15px] text-muted-foreground">Tu seguro de celular ya está activo. Te enviamos el detalle a <strong id="ex-email" class="break-all text-foreground"></strong>.</p>
+        </header>
+        <section class="grid gap-4">
+          <div class="rounded-xl bg-primary-50 p-4">
+            <p class="text-xs text-muted-foreground">Número de póliza</p>
+            <p id="ex-poliza" class="select-all font-mono text-xl font-extrabold text-primary-700 sm:text-2xl"></p>
+          </div>
+          <dl id="ex-detalle" class="divide-y text-left text-sm"></dl>
+          <button type="button" class="btn w-full" data-variant="ghost" data-accion="reiniciar">Volver al inicio</button>
+        </section>
+      </div>
+    </section>
+
+    <!-- 07 · Error de pago -->
+    <section data-paso="6" hidden class="mx-auto max-w-xl">
+      <div class="card">
+        <header>
+          <h2 tabindex="-1" class="text-2xl font-extrabold outline-none">No pudimos procesar el pago</h2>
+        </header>
+        <section class="grid gap-4">
+          <div class="alert" data-variant="destructive" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+            <h2 id="err-motivo">Tarjeta rechazada</h2>
+            <section>No se hizo ningún cobro. Tus datos siguen cargados: podés reintentar o usar otro medio de pago.</section>
+          </div>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <button type="button" class="btn h-11 sm:flex-1" data-accion="reintentar">Reintentar pago</button>
+            <button type="button" class="btn h-11 sm:flex-1" data-variant="outline" data-accion="cambiar-medio">Cambiar medio de pago</button>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- Contenedor de toasts de Basecoat -->
+  <div id="toaster" class="toaster"></div>
+</body>
+</html>

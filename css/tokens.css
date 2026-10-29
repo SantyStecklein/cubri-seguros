@@ -1,0 +1,68 @@
+:root {
+  color-scheme: light;
+  --primary: #4F46E5;            /* indigo-600 */
+  --primary-foreground: #FFFFFF;
+  --radius: 0.75rem;
+
+  --primary-700: #3730A3;
+  --primary-50: #EEF2FF;
+  --success: #059669;
+  --error: #DC2626;
+  --destructive: #DC2626;
+  --page: #F5F7FB;
+
+  --background: #FFFFFF;
+  --foreground: #0F172A;         /* slate-900 */
+  --muted-foreground: #64748B;   /* slate-500 */
+  --border: #E2E8F0;             /* slate-200 */
+  --input: #E2E8F0;
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --ring: #4F46E5;
+}
+
+/* Basecoat redefine estas variables en .dark: se sobrescriben acá, después del import */
+.dark {
+  color-scheme: dark;
+  --primary: #4F46E5;            /* se mantiene para que el texto blanco conserve contraste */
+  --primary-foreground: #FFFFFF;
+  --primary-700: #C7D2FE;
+  --primary-50: #1E1B4B;
+  --success: #34D399;
+  --error: #F87171;
+  --destructive: #F87171;
+  --page: #0B1020;
+
+  --background: #0B1020;
+  --foreground: #E2E8F0;
+  --muted-foreground: #94A3B8;
+  --border: #273449;
+  --input: #273449;
+  --card: #111A2E;
+  --card-foreground: #E2E8F0;
+  --ring: #818CF8;
+}
+
+/* Expone los tokens como utilidades: bg-card, text-success, border-border, bg-primary-50… */
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-700: var(--primary-700);
+  --color-primary-50: var(--primary-50);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-page: var(--page);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+}
+
+@layer base {
+  * { border-color: var(--border); }
+}
+
+select option {
+  background-color: var(--card);
+  color: var(--foreground);
+}
